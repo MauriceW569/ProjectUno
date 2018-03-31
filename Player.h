@@ -6,11 +6,15 @@
 
 struct Player {
 public:
+	Player() : name("") {}
 	Player(string name_in) : name(name_in) {}
 	~Player() {}
 
 	const int hand_size() {
 		return hand.size();
+	}
+	const string get_name() {
+		return name;
 	}
 	void deal(Pack *pack, vector<Player> players) {
 		for (int i = 0; i < 5; i++)
