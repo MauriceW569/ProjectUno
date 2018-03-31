@@ -9,8 +9,14 @@
 
 using namespace std;
 
-TEST(test_compile) {
+TEST(test_defualt_constructor) {
+	Player player;
+	ASSERT_EQUAL(player.get_name(), "");
+}
+
+TEST(test_custom_constructor) {
 	Player player("Maurice");
+	ASSERT_EQUAL(player.get_name(), "Maurice");
 }
 
 TEST_MAIN()
