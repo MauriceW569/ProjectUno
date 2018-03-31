@@ -14,7 +14,6 @@ Here is a link for those having trouble remembering the [rules to Uno](https://w
 
 
 ## Build Process
-----------------
 
 The build process is quite simple:
 
@@ -30,7 +29,6 @@ Now, to build the entire game:
 ```
 
 ## Unit Testing
----------------
 
 If for some reason there is a bug in the program, follow these commands to find the bug:
 
@@ -42,9 +40,8 @@ If for some reason there is a bug in the program, follow these commands to find 
 Use the command `make help` to learn about more make targets available.
 
 ## Playing the Game
--------------------
 
-Now playing the game:
+Now play the game:
 
 ```bash
 > ./game.exe [NUMBER_OF_PLAYERS] [NUMBER_OF_ROUNDS]
