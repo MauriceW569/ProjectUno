@@ -20,8 +20,9 @@ TEST(test_custom_constructor) {
 }
 
 TEST(test_get_rank) {
-	Card card;
-	ASSERT_EQUAL(card.get_rank(), Card::RANK_ONE);
+	Card card1, card2(Card::RANK_EIGHT, Card::COLOR_BLUE);
+	ASSERT_EQUAL(card1.get_rank(), Card::RANK_ONE);
+	ASSERT_EQUAL(card2.get_rank(), Card::RANK_EIGHT);
 }
 
 TEST_MAIN()
