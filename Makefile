@@ -30,9 +30,9 @@ test: Player_tests.exe Pack_tests.exe Card_tests.exe
 
 backup:
 	@if [ ! -d .__uno_cache__ ]; then \
-		mkdir -v .__uno_cache__/; fi;
-	@rm -rfv .__uno_cache__/*
-	@cp -v *.[^exe]* .__uno_cache__
+		mkdir -v .__uno_cache__/ & fi;
+	@rm -rfv .__uno_cache__/* &
+	@cp -v *.[^exe]* .__uno_cache__ &
 
 clean:
 	rm -rfv *.exe
@@ -49,11 +49,13 @@ help:
 	These are Project Uno targets used in various situations\n\n  \
 	all [default]		Makes all executables.\n  \
 	Player_tests.exe	Makes Player_tests.exe target executable.\n  \
-	Card_tests.exe		Makes Card_tests.exe target executable.\n  \
-	Pack_tests.exe		Makes Pack_tests.exe target executable.\n  \
+	Card_tests.exe	Makes Card_tests.exe target executable.\n  \
+	Pack_tests.exe	Makes Pack_tests.exe target executable.\n  \
 	test			Makes all targets and runs test executables.\n  \
-	backup			Creates backup folder for Uno files.\n  \
+	backup		Creates backup folder for Uno files.\n  \
 	clean			Clears all build output.\n  \
 	debug			Adds debugging flag to compilation.\n  \
-	help, info		Displays this message.\n\n	\
+	help, info		Displays this message.\n\n\
 	Report all bugs to email <mcwas@umich.edu>"
+
+.SUFFIXES:
