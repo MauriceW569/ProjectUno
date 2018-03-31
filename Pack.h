@@ -4,53 +4,52 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "Card.h"
 
 using namespace std;
 
 class Pack {
-	public:
-		Pack(ifstream &colors, ifstream &ranks) {
-			string color_input, rank_input;
-			
-			while (colors >> color_input)
-				color_vec.push_back(color_input);
-			while (ranks >> rank_input)
-				rank_vec.push_back(rank_input);
-			
-			for (int c = 0; c < int(color_vec.size()); c++) {
-				for (int r = 0; r < int(rank_vec.size()); r++) {
-					Color color(color_vec[c]);
-					Card *card = new Card(color, rank_vec[r]);
-					pack.push_back(card);
-				}
-			}
-		}
+public:
+	Pack() {}
+	~Pack() {}
 
-		~Pack() {}
-
-		const int size() {
-			return pack.size();
-		}
-
-		void shuffle() {
-
-		}
-
-		void print_pack(std::ostream& os) {
+	const int size() {
+		return pack.size();
+	}
+	void shuffle() {
+		srand(time(NULL));
+		for (int times = 0; times < 7; times++) {
 			for (int i = 0; i < size(); i++) {
-				os << pack[i]->get_color();
-				os << " ";
-				os << pack[i]->get_function();
-				os << endl;
+				int r = i + (rand() % (size() - i));
+				Card *temp = pack[i];
+				pack[i] = pack[r];
+				pack[r] = temp; 
 			}
 		}
+		return;
+	}
+	Card *get_top_card() {
+		return pack[size() - 1];
+	}
+	std::ostream& operator<<(std::ostream &os) {
+		for (int i = 0; i < size(); i++) {
+			os << (i + 1) << ": ";
+			os << pack[i] << endl;
+		}
+		return os;
+	}
+	Card deal_card() {
+		Card *card = get_top_card();
+		pack.pop_back();
+		return *card;
+	}
 
-	private:
-		vector<string> rank_vec;
-		vector<string> color_vec;
-		vector<Card*> pack;
+private:
+	vector<Card*> pack;
 };
 
 #endif /* PACK */

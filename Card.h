@@ -1,32 +1,60 @@
 #ifndef CARD_H
 #define CARD_H
 
+#include <iostream>
 #include <string>
 
 using namespace std;
 
-struct Color {
-	Color(string color_in) : color(color_in) {}
-	
-	const string colors[4] = {"RED", "BLUE", "GREEN", "YELLOW"};
-	string color;
-};
-
 class Card {
-	public:
-		Card(Color color_in, string function_in)
-		: color(color_in), function(function_in) {}
+public:
+	static constexpr const char* const COLOR_YELLOW = "Yellow";
+	static constexpr const char* const COLOR_BLUE = "Blue";
+	static constexpr const char* const COLOR_GREEN = "Green";
+	static constexpr const char* const COLOR_RED = "Red";
+	static constexpr const char* const COLOR_NONE = "None";	
 
-		const string get_color() {
-			return color.color;
-		}
-		const string get_function() {
-			return function;
-		}
+	static constexpr const char* const RANK_ONE = "One";
+	static constexpr const char* const RANK_TWO = "Two";
+	static constexpr const char* const RANK_THREE = "Three";
+	static constexpr const char* const RANK_FOUR = "Four";
+	static constexpr const char* const RANK_FIVE = "Five";
+	static constexpr const char* const RANK_SIX = "Six";
+	static constexpr const char* const RANK_SEVEN = "Seven";
+	static constexpr const char* const RANK_EIGHT = "Eight";
+	static constexpr const char* const RANK_NINE = "Nine";
+	static constexpr const char* const RANK_SKIP = "Skip";
+	static constexpr const char* const RANK_DRAW_TWO = "Draw Two";
+	static constexpr const char* const RANK_DRAW_FOUR = "Draw Four";
+	static constexpr const char* const RANK_REVERSE = "Reverse";
+	static constexpr const char* const RANK_WILD = "Wild";
+
+	Card() 
+		: rank(RANK_ONE), color(COLOR_YELLOW) {}
+
+	Card(const string rank_in, const string color_in)
+		: rank(rank_in), color(color_in) {}
+
+	const string get_rank() const {
+		return rank;
+	}
+	const string get_color() const {
+		return color;
+	}
+	bool operator==(const Card rhs) const {
+		return (rank == rhs.rank) && (color == rhs.color);
+	}
+	bool operator!=(const Card rhs) const {
+		return (rank != rhs.rank) || (color != rhs.color);
+	}
+	friend ostream& operator<<(ostream &os, const Card &card) {
+		os << card.color << " " << card.rank;
+		return os;
+	}
 	
-	private:
-		Color color;
-		string function;
+private:
+	string rank;
+	string color;
 };
 
 #endif /* CARD_H */

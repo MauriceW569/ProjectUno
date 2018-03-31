@@ -1,18 +1,25 @@
 
-GameFLAGS = -Wall -Werror -pedantic --std=c++11
+UNOFLAGS = -Wall -Werror -pedantic --std=c++11
 debug = -g3
 optimize = -O3
 optimize_debug = -O3 -g3
 
-game:
-	g++ $(GameFLAGS) $(optimize_debug) Pack.h Card.h game.cpp -o game.exe
+Pack = Pack.h Pack_tests.cpp unit_test_framework.h \
+	unit_test_framework.cpp
+Card = Card.h Card_tests.cpp unit_test_framework.h \
+	unit_test_framework.cpp
+Player = Player.h Player_tests.cpp unit_test_framework.h \
+	unit_test_framework.cpp
 
-game_test:
-	g++ $(GameFLAGS) $(optimize) Pack.h Card.h game.cpp -o game.exe
+Player_tests.exe: $(Player)
+	g++ $(UNOFLAGS) $(optimize) $(Player) -o Player_tests.exe
 
-game_debug:
-	g++ $(GameFLAGS) $(debug) Pack.h Card.h game.cpp -o game.exe
+Card_tests.exe: $(Card)
+	g++ $(UNOFLAGS) $(optimize) $(Card) -o Card_tests.exe
 
-.PHONY: clean
+Pack_tests.exe: $(Pack)
+	g++ $(UNOFLAGS) $(optimize) $(Pack) -o Pack_tests.exe
+
+.PHONY: clean debug
 clean:
-	rm -rv *.exe
+	@rm -rfv *.exe
