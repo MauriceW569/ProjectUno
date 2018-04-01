@@ -30,12 +30,18 @@ test: Player_tests.exe Pack_tests.exe Card_tests.exe
 
 backup:
 	@if [ ! -d .__uno_cache__ ]; then \
-		mkdir -v .__uno_cache__/ & fi;
-	@rm -rfv .__uno_cache__/* &
-	@cp -v *.[^exe]* .__uno_cache__ &
+		mkdir -v .__uno_cache__/; fi;
+	rm -rfv .__uno_cache__/*
+	cp -v *[^exe]* .__uno_cache__
 
 clean:
-	rm -rfv *.exe
+	rm -rfv *.exe *.tar.gz
+
+tar: *
+	@tar -czvf project_uno.tar.gz * .__uno_cache__
+
+extract: project_uno.tar.gz
+	@tar -xzf project_uno.tar.gz
 
 debug: clean
 debug: debug=-g3
