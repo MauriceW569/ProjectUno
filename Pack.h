@@ -1,11 +1,13 @@
 #ifndef PACK_H
 #define PACK_H
 
+#include <array>
 #include <string>
 #include <vector>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <fstream>
 
 #include "Card.h"
 
@@ -16,39 +18,46 @@ public:
 	Pack() {}
 	~Pack() {}
 
-	const int size() {
-		return pack.size();
+	const int size() const {
+		return cards.size();
 	}
 	void shuffle() {
 		srand(time(NULL));
 		for (int times = 0; times < 7; times++) {
 			for (int i = 0; i < size(); i++) {
 				int r = i + (rand() % (size() - i));
-				Card *temp = pack[i];
-				pack[i] = pack[r];
-				pack[r] = temp; 
+				Card *temp = cards[i];
+				cards[i] = cards[r];
+				cards[r] = temp; 
 			}
 		}
 		return;
 	}
 	Card *get_top_card() {
-		return pack[size() - 1];
+		return cards[size() - 1];
 	}
 	std::ostream& operator<<(std::ostream &os) {
 		for (int i = 0; i < size(); i++) {
 			os << (i + 1) << ": ";
-			os << pack[i] << endl;
+			os << cards[i] << endl;
 		}
 		return os;
 	}
 	Card deal_card() {
 		Card *card = get_top_card();
-		pack.pop_back();
+		cards.pop_back();
 		return *card;
 	}
 
 private:
-	vector<Card*> pack;
+	static const int PACK_SIZE = 108;
+	std::array<Card*, PACK_SIZE> cards;
+	int next;
+
+	void add_all_cards() {
+		
+	}
+
 };
 
 #endif /* PACK */
